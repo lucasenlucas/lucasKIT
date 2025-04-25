@@ -1,2 +1,11 @@
 #!/bin/bash
-python3 /usr/share/lucaskit/lucas_kit_ai.py
+
+if [ "$1" == "update" ]; then
+    echo "🔄 Lucas Kit updaten..."
+    cd /usr/share/lucaskit || exit
+    sudo git pull
+    sudo ./install.sh
+    echo "✅ Lucas Kit is bijgewerkt!"
+else
+    python3 /usr/share/lucaskit/lucas_kit_ai.py
+fi
