@@ -25,3 +25,5 @@ sudo chmod +x /usr/local/bin/lucaskit
 
 echo "✅ Installatie compleet!"
 echo "ℹ️ Typ 'lucaskit' in de terminal om te starten."
+
+pip3 install google-generativeai > /dev/null 2>&1
