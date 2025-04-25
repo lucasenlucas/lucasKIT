@@ -1,0 +1,2 @@
+#!/bin/bash
+python3 /usr/share/lucaskit/lucas_kit_ai.py
