@@ -1,29 +1,35 @@
 #!/bin/bash
 
-echo "🔧 Lucas Kit Payload AI installeren..."
+echo "🔧 Lucas Kit Payload AI installatie starten..."
 
-# Check Python3
-if ! command -v python3 &> /dev/null
-then
-    echo "❌ Python3 is niet geïnstalleerd! Installeer Python3 en probeer opnieuw."
+# 🔍 Stap 1: Check of hoofdscript bestaat
+if [ ! -f "lucas_kit_ai.py" ]; then
+    echo "❌ Fout: lucas_kit_ai.py is niet gevonden in deze map."
+    echo "📂 Zorg dat je in de juiste map zit (de GitHub repo)."
     exit 1
 fi
 
-# Install dependencies
-echo "📦 Vereisten installeren..."
-pip3 install google-generativeai
+# 🧠 Stap 2: Vereisten installeren
+echo "📦 Python-dependency installeren..."
+pip3 install google-generativeai --break-system-packages
 
-# Maak installatiemap
-echo "📂 Bestanden kopiëren naar /usr/share/lucaskit/..."
+# 📂 Stap 3: Verwijder oude versie & kopieer naar /usr/share/lucaskit
+echo "📁 Project kopiëren naar /usr/share/lucaskit..."
+sudo rm -rf /usr/share/lucaskit
 sudo mkdir -p /usr/share/lucaskit
 sudo cp lucas_kit_ai.py /usr/share/lucaskit/
+sudo cp install.sh /usr/share/lucaskit/
 
-# Maak het lucaskit commando beschikbaar
-echo "⚡ lucaskit commando installeren..."
-sudo cp lucaskit /usr/local/bin/
+# ⚡ Stap 4: Maak lucaskit command
+if [ ! -f "lucaskit" ]; then
+    echo "❌ Fout: lucaskit-startscript ontbreekt. Voeg het bestand 'lucaskit' toe."
+    exit 1
+fi
+
+echo "🔗 lucaskit command installeren naar /usr/local/bin..."
+sudo cp lucaskit /usr/local/bin/lucaskit
 sudo chmod +x /usr/local/bin/lucaskit
 
-echo "✅ Installatie compleet!"
-echo "ℹ️ Typ 'lucaskit' in de terminal om te starten."
-
-pip3 install google-generativeai > /dev/null 2>&1
+echo "✅ Installatie voltooid!"
+echo "👉 Je kunt nu starten met: lucaskit"
+echo "🔄 En updaten met: lucaskit update"
